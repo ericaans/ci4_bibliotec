@@ -1,13 +1,18 @@
 <div class="container p-5">
     <?=form_open('Emprestimo/salvar')?>
     <input value='<?=$emprestimo['id']?>'class='form-control' type="hidden" id='id' name='id'>
-
+    <input value='<?=$emprestimo['id_livro']?>'type="hidden" name='id_livro_antigo' id='id_livro_antigo'>
+    <?php
+        $data_inicio = $emprestimo['data_inicio'];
+        $data_inicio = explode('-',$data_inicio);
+        $data_inicio = mktime(0,0,0,$data_inicio[1],$data_inicio[2],$data_inicio[0]);
+    ?>
     <div class="row p-2">
         <div class="col-2">
             <label for="data_inicio">Data de Inicio:</label>
         </div>
         <div class="col-10">
-            <input value='<?=$emprestimo['data_inicio']?>'class='form-control' type="text" id='data_inicio' name='data_inicio'>
+            <input value="<?=$emprestimo['data_inicio']?>" class='form-control' type="date" id='data_inicio' name='data_inicio'>
         </div>
     </div>
     <div class="row p-2">
@@ -15,25 +20,33 @@
             <label for="data_fim">Data do Fim:</label>
         </div>
         <div class="col-10">
-            <input value='<?=$emprestimo['data_fim']?>'class='form-control' type="text" id='data_fim' name='data_fim'>
+            <input value='<?=$emprestimo['data_fim']?>'class='form-control' type="date" id='data_fim' name='data_fim'>
         </div>
     </div>
     <div class="row p-2">
         <div class="col-2">
-            <label for="data_prazo">Data do Prazo:</label>
+            <label for="data_prazo">Prazo:</label>
         </div>
         <div class="col-10">
             <input value='<?=$emprestimo['data_prazo']?>'class='form-control' type="text" id='data_prazo' name='data_prazo'>
         </div>
     </div>
     <div class="row p-2">
+                <?php
+                    foreach($listaObra as $obra){
+                        $obras[$obra['id']] = $obra['titulo'];
+                    }
+                ?>
         <div class="col-2">
             <label for="telefone">Livro:</label>
         </div>
         <div class="col-10">
-            <select class='form-select' name="id_livro" id="id_livro" required>
+        <select class='form-select' name="id_livro" id="id_livro" required>
+            <option>Selecione um Livro</option>
                 <?php foreach($listaLivro as $livro) : ?>
-                    <option value="<?=$livro['id']?>"><?=$livro['status']?></option>
+                    <?php if($livro['disponivel'] >= 1):?>
+                        <option value="<?=$livro['id']?>"><?=$obras[$livro['id_obra']]?></option>
+                    <?php endif?>
                 <?php endforeach ?>
             </select>
         </div>
@@ -79,6 +92,7 @@
     <!-- Modal De Excluir-->
     <?=form_open('Emprestimo/excluir')?>
     <input value='<?=$emprestimo['id']?>'class='form-control' type="hidden" id='id' name='id'>
+    <input value='<?=$emprestimo['id_livro']?>'type="hidden" name='id_livro' id='id_livro'>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

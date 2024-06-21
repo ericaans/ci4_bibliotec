@@ -1,7 +1,7 @@
 <div class="container">
     <h2>Livro</h2>
         <!-- Button do Modal -->
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Novo
         </button>
         <!-- Tabela de Usuario -->

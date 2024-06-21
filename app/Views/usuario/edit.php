@@ -1,24 +1,20 @@
-<div class="container mt-5">
-    <div class="row ">
-        <div class="col-3"></div>
-        <div class="col-6 bg-dark text-white p-4" data-bs-theme='dark'>
-    
+<div class="container p-5">
     <?=form_open('Usuario/salvar')?>
-    <input type="hidden" id='id' name='id' value='<?=$usuario['id']?>'>
+    <input value='<?=$usuario['id']?>'class='form-control' type="hidden" id='id' name='id'>
     <div class="row p-2">
         <div class="col-2">
             <label for="nome">Nome</label>
         </div>
         <div class="col-10">
-            <input value='<?=$usuario['nome']?>' class='form-control' name='nome' id='nome' type="text">
+            <input value='<?=$usuario['nome']?>'class='form-control' type="text" id='nome' name='nome'>
         </div>
     </div>
     <div class="row p-2">
         <div class="col-2">
-            <label for="email">E-mail</label>
+            <label for="nome">Email</label>
         </div>
         <div class="col-10">
-            <input class='form-control' value='<?=$usuario['email']?>' type="email" id='email' name='email'>
+            <input value='<?=$usuario['email']?>'class='form-control' type="email" id='email' name='email'>
         </div>
     </div>
     <div class="row p-2">
@@ -26,29 +22,40 @@
             <label for="telefone">Telefone</label>
         </div>
         <div class="col-10">
-            <input class='form-control' value='<?=$usuario['telefone']?>' type="text" id='telefone' name='telefone'>
+            <input value='<?=$usuario['telefone']?>'class='form-control' type="text" id='telefone' name='telefone'>
         </div>
     </div>
-    <div class="row p-2">
+    <div class="row p-4">
         <div class="col">
             <div class="btn-group w-100" role="group">
-                <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                <a href='http://localhost:8080/index.php/Usuario/index'class="btn btn-outline-secondary">Cancelar</a>
                 <button type="submit" class="btn btn-outline-success">Salvar</button>
-            </div>
-        </div>
-    </div>
-    <div class="row p-2">
-        <div class="col">
-            <div class="btn-group w-100" role="group">
-                <?=anchor('Usuario/excluir/'.$usuario['id'],
-                    'Excluir',
-                    ['class'=>'btn btn-outline-danger']
-                    )?>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Excluir
+                </button>
             </div>
         </div>
     </div>
     <?=form_close()?>
-    </div>
-    <div class="col-3"></div>
-    </div>
 </div>
+
+    <!-- Modal -->
+    <?=form_open('Usuario/excluir')?>
+    <input value='<?=$usuario['id']?>'class='form-control' type="hidden" id='id' name='id'>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Você tem certeza que deseja excluir: <br>ID: <?=$usuario['id']?><br>Nome: <?=$usuario['nome']?><br>Email: <?=$usuario['email']?><br>Telefone: <?=$usuario['telefone']?>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Excluir</button>
+        </div>
+        </div>
+    </div>
+    </div>
